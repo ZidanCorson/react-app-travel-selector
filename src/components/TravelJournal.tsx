@@ -14,11 +14,13 @@ interface Props {
 const TravelJournal = ({ city }: Props) => {
   const [notes, setNotes] = useLocalStorage<Note[]>(`travel-journal-${city}`, []);
   const [newNote, setNewNote] = useState("");
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editText, setEditText] = useState("");
 
   const addNote = () => {
     if (!newNote.trim()) return;
     const note: Note = {
-      id: Date.now().toString(),
+      id: crypto.randomUUID(),
       text: newNote,
       date: new Date().toLocaleDateString(),
     };
@@ -28,6 +30,29 @@ const TravelJournal = ({ city }: Props) => {
 
   const deleteNote = (id: string) => {
     setNotes(notes.filter((note) => note.id !== id));
+  };
+
+  const startEditing = (note: Note) => {
+    setEditingId(note.id);
+    setEditText(note.text);
+  };
+
+  const saveEdit = () => {
+    if (!editText.trim()) return;
+    setNotes(notes.map((n) => (n.id === editingId ? { ...n, text: editText } : n)));
+    setEditingId(null);
+    setEditText("");
+  };
+
+  const cancelEdit = () => {
+    setEditingId(null);
+    setEditText("");
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && (e.ctrlKey || e.metaKey)) {
+      addNote();
+    }
   };
 
   return (
@@ -44,6 +69,7 @@ const TravelJournal = ({ city }: Props) => {
             placeholder={`Write your plans or memories for ${city}...`}
             value={newNote}
             onChange={(e) => setNewNote(e.target.value)}
+            onKeyDown={handleKeyDown}
           />
           <button className="btn btn-primary btn-sm w-100" onClick={addNote}>
             Add Note
@@ -57,18 +83,49 @@ const TravelJournal = ({ city }: Props) => {
           )}
           {notes.map((note) => (
             <div key={note.id} className="list-group-item px-0">
-              <div className="d-flex justify-content-between align-items-start">
-                <div>
-                  <small className="text-muted">{note.date}</small>
-                  <p className="mb-0" style={{ whiteSpace: 'pre-wrap' }}>{note.text}</p>
+              {editingId === note.id ? (
+                <div className="d-flex flex-column gap-2">
+                  <textarea
+                    className="form-control"
+                    value={editText}
+                    onChange={(e) => setEditText(e.target.value)}
+                    rows={3}
+                  />
+                  <div className="d-flex justify-content-end gap-2">
+                    <button className="btn btn-sm btn-outline-secondary" onClick={cancelEdit}>
+                      Cancel
+                    </button>
+                    <button className="btn btn-sm btn-primary" onClick={saveEdit}>
+                      Save
+                    </button>
+                  </div>
                 </div>
-                <button 
-                  className="btn btn-link text-danger btn-sm p-0 ms-2"
-                  onClick={() => deleteNote(note.id)}
-                >
-                  <i className="bi bi-trash"></i>
-                </button>
-              </div>
+              ) : (
+                <div className="d-flex justify-content-between align-items-start">
+                  <div className="flex-grow-1">
+                    <small className="text-muted">{note.date}</small>
+                    <p className="mb-0" style={{ whiteSpace: "pre-wrap" }}>
+                      {note.text}
+                    </p>
+                  </div>
+                  <div className="d-flex gap-2 ms-2">
+                    <button
+                      className="btn btn-link text-primary btn-sm p-0"
+                      onClick={() => startEditing(note)}
+                      aria-label="Edit note"
+                    >
+                      <i className="bi bi-pencil"></i>
+                    </button>
+                    <button
+                      className="btn btn-link text-danger btn-sm p-0"
+                      onClick={() => deleteNote(note.id)}
+                      aria-label="Delete note"
+                    >
+                      <i className="bi bi-trash"></i>
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           ))}
         </div>
