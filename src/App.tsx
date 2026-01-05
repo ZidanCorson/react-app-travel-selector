@@ -8,23 +8,13 @@ import useLocalStorage from "./hooks/useLocalStorage";
 import "./App.css";
 
 function App() {
-  const [selectedCity, setSelectedCity] = useState(() => {
-    return localStorage.getItem("travel-app-selected-city") || "";
-  });
+  const [selectedCity, setSelectedCity] = useLocalStorage<string>("travel-app-selected-city", "");
   const [favorites, setFavorites] = useLocalStorage<string[]>("travel-app-favorites", []);
   const [view, setView] = useState<'home' | 'favorites' | 'compare'>('home');
   const [isComparing, setIsComparing] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
   const [alertVisible, setAlertVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
-
-  useEffect(() => {
-    if (selectedCity) {
-      localStorage.setItem("travel-app-selected-city", selectedCity);
-    } else {
-      localStorage.removeItem("travel-app-selected-city");
-    }
-  }, [selectedCity]);
 
   const toggleFavorite = (e: React.MouseEvent, city: string) => {
     e.stopPropagation();

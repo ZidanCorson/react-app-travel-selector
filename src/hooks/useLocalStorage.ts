@@ -6,6 +6,11 @@ function useLocalStorage<T>(key: string, initialValue: T) {
       const item = window.localStorage.getItem(key);
       return item ? JSON.parse(item) : initialValue;
     } catch (error) {
+      // If parsing fails, check if we have a raw string value that might be valid
+      const item = window.localStorage.getItem(key);
+      if (item) {
+        return item as unknown as T;
+      }
       console.error(error);
       return initialValue;
     }

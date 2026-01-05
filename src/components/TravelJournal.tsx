@@ -29,7 +29,15 @@ const TravelJournal = ({ city }: Props) => {
   };
 
   const deleteNote = (id: string) => {
-    setNotes(notes.filter((note) => note.id !== id));
+    if (window.confirm("Are you sure you want to delete this note?")) {
+      setNotes(notes.filter((note) => note.id !== id));
+    }
+  };
+
+  const clearAllNotes = () => {
+    if (notes.length > 0 && window.confirm("Are you sure you want to delete ALL notes for this city? This cannot be undone.")) {
+      setNotes([]);
+    }
   };
 
   const startEditing = (note: Note) => {
@@ -58,10 +66,21 @@ const TravelJournal = ({ city }: Props) => {
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
-        <h5 className="card-title text-muted text-uppercase mb-3" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-          <i className="bi bi-journal-text me-2 text-primary"></i>
-          Travel Journal
-        </h5>
+        <div className="d-flex justify-content-between align-items-center mb-3">
+          <h5 className="card-title text-muted text-uppercase mb-0" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
+            <i className="bi bi-journal-text me-2 text-primary"></i>
+            Travel Journal
+          </h5>
+          {notes.length > 0 && (
+            <button 
+              className="btn btn-link text-danger btn-sm p-0 text-decoration-none" 
+              onClick={clearAllNotes}
+              style={{ fontSize: "0.8rem" }}
+            >
+              Clear All Notes
+            </button>
+          )}
+        </div>
         <div className="mb-3">
           <textarea
             className="form-control mb-2"
