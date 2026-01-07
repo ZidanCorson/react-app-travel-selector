@@ -1,9 +1,8 @@
 import { useState, useEffect, useCallback } from "react";
 
 function useLocalStorage<T>(key: string, initialValue: T) {
-  // State to store our value
-  // Pass initial state function to useState so logic is only executed once
-  const [storedValue, setStoredValue] = useState<T>(() => {
+  // Helper to read from local storage
+  const readValue = useCallback((): T => {
     if (typeof window === "undefined") {
       return initialValue;
     }
@@ -16,10 +15,14 @@ function useLocalStorage<T>(key: string, initialValue: T) {
       if (item) {
         return item as unknown as T;
       }
-      console.error(error);
+      console.warn(`Error reading localStorage key "${key}":`, error);
       return initialValue;
     }
-  });
+  }, [key, initialValue]);
+
+  // State to store our value
+  // Pass initial state function to useState so logic is only executed once
+  const [storedValue, setStoredValue] = useState<T>(readValue);
 
   // Return a wrapped version of useState's setter function that ...
   // ... persists the new value to localStorage.
@@ -42,6 +45,11 @@ function useLocalStorage<T>(key: string, initialValue: T) {
     },
     [key]
   );
+  
+  // Re-read value when key changes
+  useEffect(() => {
+    setStoredValue(readValue());
+  }, [key, readValue]);
 
   // Subscribe to changes in other tabs/windows
   useEffect(() => {
