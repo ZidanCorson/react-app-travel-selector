@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { WeatherData } from "../hooks/useWeather";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface Props {
   city: string;
@@ -8,48 +9,24 @@ interface Props {
 }
 
 const SmartPackingList = ({ city, weather, loading }: Props) => {
-  const [packedItems, setPackedItems] = useState<Set<string>>(new Set());
-  const [customItems, setCustomItems] = useState<string[]>([]);
+  const [packedItems, setPackedItems] = useLocalStorage<string[]>(`packing-list-${city}`, []);
+  const [customItems, setCustomItems] = useLocalStorage<string[]>(`packing-list-custom-${city}`, []);
   const [newItemText, setNewItemText] = useState("");
 
-  // Load saved items when city changes
-  useEffect(() => {
-    const saved = localStorage.getItem(`packing-list-${city}`);
-    const savedCustom = localStorage.getItem(`packing-list-custom-${city}`);
-    
-    if (saved) {
-      try {
-        setPackedItems(new Set(JSON.parse(saved)));
-      } catch (e) {
-        console.error("Failed to parse packed items", e);
-        setPackedItems(new Set());
-      }
-    } else {
-      setPackedItems(new Set());
-    }
 
-    if (savedCustom) {
-      try {
-        setCustomItems(JSON.parse(savedCustom));
-      } catch (e) {
-        setCustomItems([]);
-      }
-    } else {
-      setCustomItems([]);
-    }
-  }, [city]);
 
-  // Save items whenever they change
-  useEffect(() => {
-    localStorage.setItem(`packing-list-${city}`, JSON.stringify([...packedItems]));
-  }, [packedItems, city]);
-
-  // Save custom items
-  useEffect(() => {
-    localStorage.setItem(`packing-list-custom-${city}`, JSON.stringify(customItems));
-  }, [customItems, city]);
-
-  if (loading || !weather) return null;
+  if (loading || !weather) {
+    return (
+      <div className="card shadow-sm h-100">
+        <div className="card-body d-flex flex-column justify-content-center align-items-center">
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+          <p className="mt-2 text-muted">Generating packing list...</p>
+        </div>
+      </div>
+    );
+  }
 
   const getSuggestions = (temp: number, code: number) => {
     const items: string[] = [];
@@ -87,16 +64,16 @@ const SmartPackingList = ({ city, weather, loading }: Props) => {
 
   const suggestions = getSuggestions(weather.temperature, weather.weatherCode);
   const allItems = [...suggestions, ...customItems];
-  const progress = Math.round((packedItems.size / allItems.length) * 100) || 0;
+  const progress = Math.round((packedItems.length / allItems.length) * 100) || 0;
 
   const toggleItem = (item: string) => {
-    const newPacked = new Set(packedItems);
-    if (newPacked.has(item)) {
-      newPacked.delete(item);
-    } else {
-      newPacked.add(item);
-    }
-    setPackedItems(newPacked);
+    setPackedItems((prev) => {
+      if (prev.includes(item)) {
+        return prev.filter((i) => i !== item);
+      } else {
+        return [...prev, item];
+      }
+    });
   };
 
   const addCustomItem = (e: React.FormEvent) => {
@@ -109,11 +86,9 @@ const SmartPackingList = ({ city, weather, loading }: Props) => {
 
   const removeCustomItem = (e: React.MouseEvent, item: string) => {
     e.stopPropagation();
-    setCustomItems(customItems.filter(i => i !== item));
-    if (packedItems.has(item)) {
-      const newPacked = new Set(packedItems);
-      newPacked.delete(item);
-      setPackedItems(newPacked);
+    setCustomItems(customItems.filter((i) => i !== item));
+    if (packedItems.includes(item)) {
+      setPackedItems((prev) => prev.filter((i) => i !== item));
     }
   };
 
@@ -138,14 +113,14 @@ const SmartPackingList = ({ city, weather, loading }: Props) => {
             </div>
           </div>
           <span className="badge bg-light text-dark border">
-            {packedItems.size} / {allItems.length}
+            {packedItems.length} / {allItems.length}
           </span>
         </div>
         
         <div className="flex-grow-1 overflow-auto" style={{ maxHeight: "300px" }}>
           <ul className="list-group list-group-flush">
             {allItems.map((item, index) => {
-              const isPacked = packedItems.has(item);
+              const isPacked = packedItems.includes(item);
               const isCustom = customItems.includes(item);
               return (
                 <li

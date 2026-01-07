@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { cityItineraries } from "../data/cities";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 interface Props {
   city: string;
@@ -10,12 +11,7 @@ const DailyItinerary = ({ city }: Props) => {
   // State to track which accordion item is open. Default to 0 (first day).
   const [openIndex, setOpenIndex] = useState<number | null>(0);
   // State to track selected activities
-  const [selectedActivities, setSelectedActivities] = useState<Set<string>>(new Set());
-
-  // Reset selections when city changes
-  useEffect(() => {
-    setSelectedActivities(new Set());
-  }, [city]);
+  const [selectedActivities, setSelectedActivities] = useLocalStorage<string[]>(`itinerary-storage-${city}`, []);
 
   if (!itinerary) return null;
 
@@ -25,13 +21,13 @@ const DailyItinerary = ({ city }: Props) => {
 
   const toggleActivity = (day: number, activityIndex: number) => {
     const id = `${day}-${activityIndex}`;
-    const newSelected = new Set(selectedActivities);
-    if (newSelected.has(id)) {
-      newSelected.delete(id);
-    } else {
-      newSelected.add(id);
-    }
-    setSelectedActivities(newSelected);
+    setSelectedActivities((prev) => {
+      if (prev.includes(id)) {
+        return prev.filter((i) => i !== id);
+      } else {
+        return [...prev, id];
+      }
+    });
   };
 
   return (
@@ -67,7 +63,7 @@ const DailyItinerary = ({ city }: Props) => {
                   <div className="accordion-body bg-white">
                     <ul className="list-group list-group-flush">
                       {dayPlan.activities.map((activity, i) => {
-                        const isSelected = selectedActivities.has(`${dayPlan.day}-${i}`);
+                        const isSelected = selectedActivities.includes(`${dayPlan.day}-${i}`);
                         return (
                           <li 
                             key={i} 
