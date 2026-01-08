@@ -3,6 +3,7 @@ import Alert from "./components/Alert";
 import Button from "./components/Button";
 import CityDetails from "./components/CityDetails";
 import CompareCities from "./components/CompareCities";
+import TripWizard from "./components/TripWizard";
 import { items, cityImages } from "./data/cities";
 import useLocalStorage from "./hooks/useLocalStorage";
 import "./App.css";
@@ -10,7 +11,7 @@ import "./App.css";
 function App() {
   const [selectedCity, setSelectedCity] = useLocalStorage<string>("travel-app-selected-city", "");
   const [favorites, setFavorites] = useLocalStorage<string[]>("travel-app-favorites", []);
-  const [view, setView] = useState<'home' | 'favorites' | 'compare'>('home');
+  const [view, setView] = useState<'home' | 'favorites' | 'compare' | 'wizard'>('home');
   const [isComparing, setIsComparing] = useState(false);
   const [compareList, setCompareList] = useState<string[]>([]);
   const [alertVisible, setAlertVisible] = useState(false);
@@ -71,7 +72,7 @@ function App() {
           <div className="col-lg-10">
             <h1 className="mb-5 text-center main-title text-white text-shadow">Luxury Travel Selector</h1>
             
-            {alertVisible && !isComparing && view !== 'compare' && (
+            {alertVisible && !isComparing && view !== 'compare' && view !== 'wizard' && (
               <Alert onClose={() => setAlertVisible(false)}>
                 {selectedCity 
                   ? `Excellent choice. We have curated an exclusive experience for ${selectedCity}.` 
@@ -79,7 +80,18 @@ function App() {
               </Alert>
             )}
             
-            {!selectedCity && view !== 'compare' && (
+            {view === 'wizard' && (
+              <TripWizard 
+                onSelectCity={(city) => {
+                  setSelectedCity(city);
+                  setView('home');
+                  setAlertVisible(true);
+                }}
+                onCancel={() => setView('home')}
+              />
+            )}
+
+            {!selectedCity && view !== 'compare' && view !== 'wizard' && (
               <>
                 <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-5">
                   <div className="bg-white p-1 rounded-pill shadow-sm d-flex filter-container">
@@ -95,6 +107,13 @@ function App() {
                     >
                       <i className={`bi ${view === 'favorites' ? 'bi-heart-fill' : 'bi-heart'} me-2 ${view === 'favorites' ? '' : 'text-danger'}`}></i>
                       Bucket List
+                    </button>
+                    <button 
+                      className={`btn rounded-pill px-4 fw-bold filter-button ${view === 'wizard' && !isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
+                      onClick={() => { setView('wizard'); setIsComparing(false); }}
+                    >
+                      <i className="bi bi-magic me-2 text-warning"></i>
+                      wizard
                     </button>
                     <button 
                       className={`btn rounded-pill px-4 fw-bold filter-button ${isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
@@ -200,7 +219,7 @@ function App() {
               </>
             )}
 
-            {selectedCity && !isComparing && view !== 'compare' && (
+            {selectedCity && !isComparing && view !== 'compare' && view !== 'wizard' && (
               <CityDetails 
                 selectedCity={selectedCity} 
                 onBack={handleBack} 
