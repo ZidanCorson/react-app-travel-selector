@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Alert from "./components/Alert";
 import Button from "./components/Button";
 import CityDetails from "./components/CityDetails";
@@ -109,7 +109,7 @@ function App() {
                       Bucket List
                     </button>
                     <button 
-                      className={`btn rounded-pill px-4 fw-bold filter-button ${view === 'wizard' && !isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
+                      className="btn rounded-pill px-4 fw-bold filter-button btn-light bg-transparent text-muted border-0"
                       onClick={() => { setView('wizard'); setIsComparing(false); }}
                     >
                       <i className="bi bi-magic me-2 text-warning"></i>
