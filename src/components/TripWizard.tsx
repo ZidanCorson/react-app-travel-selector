@@ -124,12 +124,12 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
     const cityImage = images ? images[0] : "";
 
     return (
-      <div className="card shadow-lg border-0" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <div className="card shadow-lg wizard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
         <div className="card-body text-center p-5">
            <div className="mb-4">
-             <i className="bi bi-stars text-warning" style={{ fontSize: '3rem' }}></i>
+             <i className="bi bi-stars text-gold" style={{ fontSize: '3rem' }}></i>
            </div>
-           <h2 className="mb-4">We Recommend: {recommendedCity}!</h2>
+           <h2 className="mb-4 wizard-title">We Recommend: {recommendedCity}</h2>
            <p className="lead mb-4">Based on your preferences, we think you'll fall in love with {recommendedCity}.</p>
            
            {cityImage && (
@@ -143,13 +143,13 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
 
            <div className="d-grid gap-3">
              <button 
-               className="btn btn-primary btn-lg"
+               className="btn btn-luxury-primary btn-lg"
                onClick={() => onSelectCity(recommendedCity)}
              >
                Explore {recommendedCity}
              </button>
              <button 
-               className="btn btn-outline-secondary"
+               className="btn btn-luxury-secondary"
                onClick={onCancel}
              >
                Start Over / Back
@@ -161,31 +161,31 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
   }
 
   return (
-    <div className="card shadow-lg border-0" style={{ maxWidth: '600px', margin: '0 auto' }}>
-      <div className="card-header bg-primary text-white text-center py-3">
-        <h3 className="mb-0"><i className="bi bi-magic me-2"></i>Trip Planner Wizard</h3>
+    <div className="card shadow-lg wizard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
+      <div className="card-header wizard-header text-center py-3">
+        <h3 className="mb-0 wizard-title"><i className="bi bi-magic me-2 text-gold"></i>Trip Planner Wizard</h3>
       </div>
       <div className="card-body p-5">
         <div className="progress mb-4" style={{ height: '10px' }}>
           <div 
-            className="progress-bar" 
+            className="progress-bar wizard-progress-bar" 
             role="progressbar" 
             style={{ width: `${((step) / questions.length) * 100}%` }}
           ></div>
         </div>
 
-        <h4 className="mb-4 text-center">{currentQuestion.text}</h4>
+        <h4 className="mb-4 text-center wizard-title">{currentQuestion.text}</h4>
 
         <div className="d-grid gap-3">
           {currentQuestion.options.map((option, idx) => (
             <button 
               key={idx}
-              className="btn btn-outline-primary btn-lg text-start px-4 py-3"
+              className="btn btn-option btn-lg text-start px-4 py-3"
               onClick={() => handleAnswer(option.scores)}
             >
               <div className="d-flex w-100 justify-content-between align-items-center">
                  <span>{option.label}</span>
-                 <i className="bi bi-chevron-right"></i>
+                 <i className="bi bi-chevron-right text-gold"></i>
               </div>
             </button>
           ))}
