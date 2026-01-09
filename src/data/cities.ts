@@ -237,3 +237,61 @@ export const cityCuisine: { [key: string]: { dish: string; description: string }
   ]
 };
 
+export const cityEtiquette: { [key: string]: { type: 'do' | 'dont'; rule: string; description: string }[] } = {
+  "New York": [
+    { type: 'do', rule: "Tip Generously", description: "Tipping 18-22% is standard in restaurants. It is not optional." },
+    { type: 'do', rule: "Walk Fast", description: "Keep right and keep moving on sidewalks. New Yorkers are always in a rush." },
+    { type: 'dont', rule: "Block Subway Doors", description: "Let people off the train before you try to get on." },
+    { type: 'dont', rule: "Stop in the Middle of the Sidewalk", description: "If you need to check your map, step to the side against a building." }
+  ],
+  "San Francisco": [
+    { type: 'do', rule: "Layer Clothing", description: "The weather changes drastically by neighborhood. Always bring a jacket." },
+    { type: 'do', rule: "Compost and Recycle", description: "SF takes waste sorting seriously. Pay attention to the bins." },
+    { type: 'dont', rule: "Call it 'San Fran'", description: "Locals prefer 'SF' or just 'The City'." },
+    { type: 'dont', rule: "Leave Valuables in Car", description: "Car break-ins are common. Leave nothing visible in your vehicle." }
+  ],
+  "Tokyo": [
+    { type: 'do', rule: "Bow when greeting", description: "A slight bow is polite. Handshakes are becoming common but bowing is respectful." },
+    { type: 'do', rule: "Queuing", description: "Line up orderly for trains and elevators." },
+    { type: 'dont', rule: "Tip", description: "Tipping is not practiced and can be considered rude or confusing." },
+    { type: 'dont', rule: "Walk and Eat", description: "It is considered bad manners to eat while walking. Find a designated spot." }
+  ],
+  "Paris": [
+    { type: 'do', rule: "Say 'Bonjour'", description: "Always say 'Bonjour' when entering a shop or interacting with someone." },
+    { type: 'do', rule: "Dress Smartly", description: "Parisians tend to dress well. Avoid overly casual athletic wear." },
+    { type: 'dont', rule: "Speak Loudly", description: "Keep your voice down in public spaces and restaurants." },
+    { type: 'dont', rule: "Rush Meals", description: "Dining is an experience. Expect service to be slower and more relaxed." }
+  ],
+  "London": [
+    { type: 'do', rule: "Stand on the Right", description: "On escalators, stand on the right so people can walk on the left." },
+    { type: 'do', rule: "Queue Properly", description: "Queue jumping is a major social offense." },
+    { type: 'dont', rule: "Make Eye Contact on the Tube", description: "Londoners generally avoid eye contact on public transport." },
+    { type: 'dont', rule: "Criticize the Royal Family", description: "Even if locals do it, it's best for visitors to remain neutral." }
+  ],
+  "Marrakech": [
+    { type: 'do', rule: "Dress Modestly", description: "Shoulders and knees should generally be covered, especially outside resorts." },
+    { type: 'do', rule: "Haggle in Souks", description: "Bargaining is expected in the markets. Keep it friendly." },
+    { type: 'dont', rule: "Take Photos of People without Permission", description: "It is considered disrespectful. Always ask first." },
+    { type: 'dont', rule: "Use Left Hand for Eating", description: "The left hand is considered unclean. Use your right hand for communal eating." }
+  ],
+  "Kyoto": [
+    { type: 'do', rule: "Remove Shoes", description: "Take off shoes when entering temples, traditional inns, and some restaurants." },
+    { type: 'do', rule: "Be Quiet in Temples", description: "These are sacred places. varied." },
+    { type: 'dont', rule: "Touch Geisha", description: "If you see a Geisha or Maiko, do not stop them or touch them for a photo." },
+    { type: 'dont', rule: "Tip", description: "Like the rest of Japan, tipping is not expected." }
+  ],
+  "Casablanca": [
+    { type: 'do', rule: "Greet Respectfully", description: "Handshakes are common, often followed by touching your heart." },
+    { type: 'do', rule: "Accept Tea", description: "If offered mint tea, it is polite to accept it." },
+    { type: 'dont', rule: "Refuse Hospitality", description: "Moroccans are very hospitable; refusing can be seen as rude." },
+    { type: 'dont', rule: "Drink Alcohol in Public", description: "It is generally frowned upon outside of licensed bars/hotels." }
+  ],
+  "Beijing": [
+    { type: 'do', rule: "Offer Gifts with Two Hands", description: "Use both hands to give and receive gifts or business cards." },
+    { type: 'do', rule: "Respect Elders", description: "Greet the oldest person first." },
+    { type: 'dont', rule: "Stick Chopsticks Vertically", description: "Sticking chopsticks upright in rice resembles incense for the dead." },
+    { type: 'dont', rule: "lose your temper", description: "Public displays of anger cause 'loss of face'." }
+  ]
+};
+
+
