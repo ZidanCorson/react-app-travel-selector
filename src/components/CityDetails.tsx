@@ -9,6 +9,7 @@ import DailyItinerary from "./DailyItinerary";
 import LocalCuisineGuide from "./LocalCuisineGuide";
 import CulturalEtiquette from "./CulturalEtiquette";
 import TravelJournal from "./TravelJournal";
+import AIConcierge from "./AIConcierge";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 import { useWeather } from "../hooks/useWeather";
 
@@ -105,6 +106,12 @@ Check out this trip on Luxury Travel Selector!
                 ></iframe>
               </div>
             )}
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-12">
+            <AIConcierge city={selectedCity} weather={weather} />
           </div>
         </div>
 
