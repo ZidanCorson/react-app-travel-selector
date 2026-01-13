@@ -94,16 +94,22 @@ function App() {
             {!selectedCity && view !== 'compare' && view !== 'wizard' && (
               <>
                 <div className="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-5">
-                  <div className="bg-white p-1 rounded-pill shadow-sm d-flex filter-container">
+                  <div className="bg-white p-1 rounded-pill shadow-sm d-flex filter-container" role="tablist">
                     <button 
                       className={`btn rounded-pill px-4 fw-bold filter-button ${view === 'home' && !isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
                       onClick={() => { setView('home'); setIsComparing(false); }}
+                      role="tab"
+                      aria-selected={view === 'home' && !isComparing}
+                      aria-controls="destination-list"
                     >
                       All Destinations
                     </button>
                     <button 
                       className={`btn rounded-pill px-4 fw-bold filter-button ${view === 'favorites' && !isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
                       onClick={() => { setView('favorites'); setIsComparing(false); }}
+                      role="tab"
+                      aria-selected={view === 'favorites' && !isComparing}
+                      aria-controls="destination-list"
                     >
                       <i className={`bi ${view === 'favorites' ? 'bi-heart-fill' : 'bi-heart'} me-2 ${view === 'favorites' ? '' : 'text-danger'}`}></i>
                       Bucket List
@@ -111,13 +117,15 @@ function App() {
                     <button 
                       className="btn rounded-pill px-4 fw-bold filter-button btn-light bg-transparent text-muted border-0"
                       onClick={() => { setView('wizard'); setIsComparing(false); }}
+                      role="tab"
                     >
                       <i className="bi bi-magic me-2 text-warning"></i>
-                      wizard
+                      Wizard
                     </button>
                     <button 
                       className={`btn rounded-pill px-4 fw-bold filter-button ${isComparing ? 'btn-primary shadow-sm' : 'btn-light bg-transparent text-muted border-0'}`}
                       onClick={() => { setIsComparing(!isComparing); setCompareList([]); }}
+                      aria-pressed={isComparing}
                     >
                       <i className="bi bi-arrow-left-right me-2"></i>
                       Compare
