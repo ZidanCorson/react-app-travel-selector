@@ -150,7 +150,7 @@ const AIConcierge = ({ city, weather }: Props) => {
           AI Concierge
         </h5>
         
-        <div className="flex-grow-1 overflow-auto mb-3 pe-2" ref={scrollRef}>
+        <div className="flex-grow-1 overflow-auto mb-3 pe-2" ref={scrollRef} aria-live="polite" role="log">
           {messages.map(msg => (
             <div key={msg.id} className={`d-flex mb-2 ${msg.sender === 'user' ? 'justify-content-end' : 'justify-content-start'}`}>
               {msg.sender === 'bot' && (
