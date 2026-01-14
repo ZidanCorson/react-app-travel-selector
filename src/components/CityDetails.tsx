@@ -10,6 +10,7 @@ import LocalCuisineGuide from "./LocalCuisineGuide";
 import CulturalEtiquette from "./CulturalEtiquette";
 import TravelJournal from "./TravelJournal";
 import AIConcierge from "./AIConcierge";
+import EmergencySupport from "./EmergencySupport";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 import { useWeather } from "../hooks/useWeather";
 
@@ -145,6 +146,12 @@ Check out this trip on Luxury Travel Selector!
           </div>
           <div className="col-md-6">
             <SmartPackingList city={selectedCity} weather={weather} loading={loading} />
+          </div>
+        </div>
+
+        <div className="row mb-4">
+          <div className="col-md-8 mx-auto">
+            <EmergencySupport city={selectedCity} />
           </div>
         </div>
 
