@@ -17,13 +17,20 @@ import { useWeather } from "../hooks/useWeather";
 interface Props {
   selectedCity: string;
   onBack: () => void;
+  onEmergencyToggle: (isEmergency: boolean) => void;
 }
 
-const CityDetails = ({ selectedCity, onBack }: Props) => {
+const CityDetails = ({ selectedCity, onBack, onEmergencyToggle }: Props) => {
   const coords = cityCoordinates[selectedCity];
   const { weather, loading, error } = useWeather(selectedCity);
   const [estimatedCost, setEstimatedCost] = useState(0);
   const [showShareToast, setShowShareToast] = useState(false);
+  const [showEmergency, setShowEmergency] = useState(false);
+
+  const toggleEmergency = (show: boolean) => {
+    setShowEmergency(show);
+    onEmergencyToggle(show);
+  };
 
   const handleShare = async () => {
     const itinerary = cityItineraries[selectedCity];
@@ -60,6 +67,21 @@ Check out this trip on Luxury Travel Selector!
     });
   };
 
+  if (showEmergency) {
+    return (
+      <div className="container py-4">
+        <button 
+          onClick={() => toggleEmergency(false)} 
+          className="btn btn-secondary mb-3 shadow-sm"
+        >
+          <i className="bi bi-arrow-left me-2"></i>
+          Back to Dashboard
+        </button>
+        <EmergencySupport city={selectedCity} />
+      </div>
+    );
+  }
+
   return (
     <div className="card shadow-sm mb-4 position-relative">
       {showShareToast && (
@@ -78,14 +100,24 @@ Check out this trip on Luxury Travel Selector!
             <h2>Photos and Advice for {selectedCity}</h2>
             <p className="mb-0">Here are some great photos and travel tips for your trip to {selectedCity}!</p>
           </div>
-          <button 
-            className="btn-share-luxury" 
-            onClick={handleShare}
-            title="Share Trip Summary"
-          >
-            <i className="bi bi-send-fill me-2"></i>
-            Share Trip
-          </button>
+          <div className="d-flex gap-2">
+            <button 
+              className="btn btn-danger text-white" 
+              onClick={() => toggleEmergency(true)}
+              title="Emergency Numbers"
+            >
+              <i className="bi bi-shield-exclamation me-2"></i>
+              Emergency
+            </button>
+            <button 
+              className="btn-share-luxury" 
+              onClick={handleShare}
+              title="Share Trip Summary"
+            >
+              <i className="bi bi-send-fill me-2"></i>
+              Share Trip
+            </button>
+          </div>
         </div>
         
         <div className="row mb-4">
@@ -146,12 +178,6 @@ Check out this trip on Luxury Travel Selector!
           </div>
           <div className="col-md-6">
             <SmartPackingList city={selectedCity} weather={weather} loading={loading} />
-          </div>
-        </div>
-
-        <div className="row mb-4">
-          <div className="col-md-8 mx-auto">
-            <EmergencySupport city={selectedCity} />
           </div>
         </div>
 
