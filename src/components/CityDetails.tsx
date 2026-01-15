@@ -10,6 +10,7 @@ import LocalCuisineGuide from "./LocalCuisineGuide";
 import CulturalEtiquette from "./CulturalEtiquette";
 import TravelJournal from "./TravelJournal";
 import AIConcierge from "./AIConcierge";
+import PreTravelChecklist from "./PreTravelChecklist";
 import EmergencySupport from "./EmergencySupport";
 import { cityImages, citySuggestions, cityCoordinates, cityItineraries } from "../data/cities";
 import { useWeather } from "../hooks/useWeather";
@@ -18,18 +19,25 @@ interface Props {
   selectedCity: string;
   onBack: () => void;
   onEmergencyToggle: (isEmergency: boolean) => void;
+  onPreTravelToggle: (isPreTravel: boolean) => void;
 }
 
-const CityDetails = ({ selectedCity, onBack, onEmergencyToggle }: Props) => {
+const CityDetails = ({ selectedCity, onBack, onEmergencyToggle, onPreTravelToggle }: Props) => {
   const coords = cityCoordinates[selectedCity];
   const { weather, loading, error } = useWeather(selectedCity);
   const [estimatedCost, setEstimatedCost] = useState(0);
   const [showShareToast, setShowShareToast] = useState(false);
   const [showEmergency, setShowEmergency] = useState(false);
+  const [showPreTravel, setShowPreTravel] = useState(false);
 
   const toggleEmergency = (show: boolean) => {
     setShowEmergency(show);
     onEmergencyToggle(show);
+  };
+
+  const togglePreTravel = (show: boolean) => {
+    setShowPreTravel(show);
+    onPreTravelToggle(show);
   };
 
   const handleShare = async () => {
@@ -82,6 +90,21 @@ Check out this trip on Luxury Travel Selector!
     );
   }
 
+  if (showPreTravel) {
+    return (
+      <div className="container py-4">
+        <button 
+          onClick={() => togglePreTravel(false)} 
+          className="btn btn-secondary mb-3 shadow-sm"
+        >
+          <i className="bi bi-arrow-left me-2"></i>
+          Back to Dashboard
+        </button>
+        <PreTravelChecklist city={selectedCity} />
+      </div>
+    );
+  }
+
   return (
     <div className="card shadow-sm mb-4 position-relative">
       {showShareToast && (
@@ -108,6 +131,14 @@ Check out this trip on Luxury Travel Selector!
             >
               <i className="bi bi-shield-exclamation me-2"></i>
               Emergency
+            </button>
+            <button 
+              className="btn btn-primary text-white text-transform-none" 
+              onClick={() => togglePreTravel(true)}
+              title="Pre-Travel Requirements"
+            >
+              <i className="bi bi-clipboard-check me-2"></i>
+              Requirements
             </button>
             <button 
               className="btn-share-luxury" 

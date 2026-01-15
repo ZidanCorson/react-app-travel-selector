@@ -294,4 +294,14 @@ export const cityEtiquette: { [key: string]: { type: 'do' | 'dont'; rule: string
   ]
 };
 
-
+export const cityRequirementInfo: { [key: string]: { visa: string; health: string; electrical: string } } = {
+  "New York": { visa: "ESTA required for most international travelers. Check US visa waiver program.", health: "No specific vaccinations required. High standard of healthcare.", electrical: "Type A/B plug (120V). Travelers from EU/UK need adapter." },
+  "San Francisco": { visa: "ESTA required for most international travelers. Check US visa waiver program.", health: "No specific vaccinations required. High standard of healthcare.", electrical: "Type A/B plug (120V). Travelers from EU/UK need adapter." },
+  "Tokyo": { visa: "Visa-free for up to 90 days for many nationalities. Check specific Embassy info.", health: "Routine vaccines recommended. Healthcare is excellent but expensive.", electrical: "Type A plug (100V). Two flat pins." },
+  "Paris": { visa: "Schengen Area rules apply. ETIAS may be required soon.", health: "No specific vaccinations required. Pharmacies are widely available (Green Cross).", electrical: "Type E/C plug (230V). Standard European round pin." },
+  "London": { visa: "ETA required for some nationalities. Standard Visitor Visa for others.", health: "NHS available for emergencies. Travel insurance highly recommended.", electrical: "Type G plug (230V). Three rectangular pins." },
+  "Marrakech": { visa: "Visa-free for up to 90 days for US/EU/UK citizens.", health: "Hepatitis A and Typhoid recommended. Avoid tap water.", electrical: "Type C/E plug (220V). Similar to Europe." },
+  "Kyoto": { visa: "Visa-free for up to 90 days for many nationalities.", health: "Routine vaccines. Carry specific medications as some foreign ones are restricted.", electrical: "Type A plug (100V). Two flat pins." },
+  "Casablanca": { visa: "Visa-free for up to 90 days for US/EU/UK citizens.", health: "Hepatitis A and Typhoid recommended. Drink bottled water.", electrical: "Type C/E plug (220V)." },
+  "Beijing": { visa: "144-hour visa-free transit available for some. Tourist visa (L) generally required.", health: "Hepatitis A/B and Typhoid recommended. Air quality can vary.", electrical: "Type A/C/I plug (220V). Multi-socket adapters often needed." }
+};
