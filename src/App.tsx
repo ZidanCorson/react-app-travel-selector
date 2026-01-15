@@ -17,6 +17,7 @@ function App() {
   const [alertVisible, setAlertVisible] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [isEmergencyView, setIsEmergencyView] = useState(false);
+  const [isPreTravelView, setIsPreTravelView] = useState(false);
 
   const toggleFavorite = (e: React.MouseEvent, city: string) => {
     e.stopPropagation();
@@ -53,6 +54,7 @@ function App() {
     setIsComparing(false);
     setCompareList([]);
     setIsEmergencyView(false);
+    setIsPreTravelView(false);
   };
 
   const startComparison = () => {
@@ -73,7 +75,7 @@ function App() {
         <div className="row justify-content-center">
           <div className="col-lg-10">
             <h1 className="mb-5 text-center main-title text-white text-shadow">Luxury Travel Selector</h1>
-            {alertVisible && !isComparing && !isEmergencyView && view !== 'compare' && view !== 'wizard' && (
+            {alertVisible && !isComparing && !isEmergencyView && !isPreTravelView && view !== 'compare' && view !== 'wizard' && (
               <Alert onClose={() => setAlertVisible(false)}>
                 {selectedCity 
                   ? `Excellent choice. We have curated an exclusive experience for ${selectedCity}.` 
@@ -233,6 +235,7 @@ function App() {
                 selectedCity={selectedCity} 
                 onBack={handleBack} 
                 onEmergencyToggle={setIsEmergencyView}
+                onPreTravelToggle={setIsPreTravelView}
               />
             )}
 

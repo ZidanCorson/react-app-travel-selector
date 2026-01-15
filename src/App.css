@@ -358,3 +358,7 @@ h2 {
   color: #DAA520 !important;
 }
 
+.text-transform-none {
+  text-transform: none !important;
+  letter-spacing: normal !important;
+}
