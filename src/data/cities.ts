@@ -51,7 +51,7 @@ export const cityImages: { [key: string]: string[] } = {
 export const citySuggestions: { [key: string]: string } = {
   "New York": "Visit Central Park, see a Broadway show, and walk across the Brooklyn Bridge.",
   "San Francisco": "Walk across the Golden Gate Bridge, visit Alcatraz, and ride a cable car.",
-  "Tokyo": "Visit the Senso-ji Temple, cross the Shibuya Crossing, and explore Akihabara.",
+  "Tokyo": "Visit the Senso-ji Temple, experience the Shibuya Crossing, and explore Akihabara.",
   "Paris": "Visit the Eiffel Tower, explore the Louvre Museum, and walk along the Seine River.",
   "London": "Visit the British Museum, see the Tower of London, and ride the London Eye.",
   "Marrakech": "Explore the Medina souks, visit the Majorelle Garden, and see the Koutoubia Mosque.",
@@ -276,7 +276,7 @@ export const cityEtiquette: { [key: string]: { type: 'do' | 'dont'; rule: string
   ],
   "Kyoto": [
     { type: 'do', rule: "Remove Shoes", description: "Take off shoes when entering temples, traditional inns, and some restaurants." },
-    { type: 'do', rule: "Be Quiet in Temples", description: "These are sacred places. varied." },
+    { type: 'do', rule: "Be Quiet in Temples", description: "These are sacred places. Silence is golden." },
     { type: 'dont', rule: "Touch Geisha", description: "If you see a Geisha or Maiko, do not stop them or touch them for a photo." },
     { type: 'dont', rule: "Tip", description: "Like the rest of Japan, tipping is not expected." }
   ],
@@ -290,7 +290,7 @@ export const cityEtiquette: { [key: string]: { type: 'do' | 'dont'; rule: string
     { type: 'do', rule: "Offer Gifts with Two Hands", description: "Use both hands to give and receive gifts or business cards." },
     { type: 'do', rule: "Respect Elders", description: "Greet the oldest person first." },
     { type: 'dont', rule: "Stick Chopsticks Vertically", description: "Sticking chopsticks upright in rice resembles incense for the dead." },
-    { type: 'dont', rule: "lose your temper", description: "Public displays of anger cause 'loss of face'." }
+    { type: 'dont', rule: "Lose your temper", description: "Public displays of anger cause 'loss of face'." }
   ]
 };
 
