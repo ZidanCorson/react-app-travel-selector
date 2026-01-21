@@ -71,3 +71,82 @@ export default defineConfig([
   },
 ])
 ```
+
+---
+
+## Getting Started
+
+### Prerequisites
+- [Node.js](https://nodejs.org/) (v18 or newer recommended)
+- npm (comes with Node.js)
+
+### Installation
+
+```bash
+npm install
+```
+
+### Development Server
+
+Start the local development server with hot reloading:
+
+```bash
+npm run dev
+```
+
+### Type Checking
+
+Run TypeScript type checks only:
+
+```bash
+npm run type-check
+```
+
+### Linting
+
+Run ESLint to check for code quality and style issues:
+
+```bash
+npm run lint
+```
+
+### Building for Production
+
+Create an optimized production build:
+
+```bash
+npm run build
+```
+
+### Preview Production Build
+
+Serve the production build locally:
+
+```bash
+npm run preview
+```
+
+---
+
+## Project Structure
+
+- `src/` — Main source code (components, hooks, data, styles)
+- `public/` — Static assets
+- `tsconfig*.json` — TypeScript configuration
+- `vite.config.ts` — Vite configuration
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/YourFeature`)
+3. Commit your changes (`git commit -am 'Add some feature'`)
+4. Push to the branch (`git push origin feature/YourFeature`)
+5. Open a pull request
+
+---
+
+## License
+
+This project is licensed under the MIT License.
