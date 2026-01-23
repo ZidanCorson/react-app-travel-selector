@@ -1,11 +1,20 @@
 import { useState, useEffect } from "react";
 import { cityCoordinates } from "../data/cities";
 
+
+export interface DailyForecast {
+  date: string;
+  temperatureMax: number;
+  temperatureMin: number;
+  weatherCode: number;
+}
+
 export interface WeatherData {
   temperature: number;
   weatherCode: number;
   isDay: number;
   timezone: string;
+  daily?: DailyForecast[];
 }
 
 export const useWeather = (city: string) => {
@@ -23,15 +32,22 @@ export const useWeather = (city: string) => {
       setError("");
       try {
         const response = await fetch(
-          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&current_weather=true&timezone=auto`
+          `https://api.open-meteo.com/v1/forecast?latitude=${coords.lat}&longitude=${coords.lng}&current_weather=true&daily=temperature_2m_max,temperature_2m_min,weathercode&timezone=auto&forecast_days=7`
         );
         if (!ignore) {
           const data = await response.json();
+          const daily: DailyForecast[] = (data.daily?.time || []).map((date: string, idx: number) => ({
+            date,
+            temperatureMax: data.daily.temperature_2m_max[idx],
+            temperatureMin: data.daily.temperature_2m_min[idx],
+            weatherCode: data.daily.weathercode[idx],
+          }));
           setWeather({
             temperature: data.current_weather.temperature,
             weatherCode: data.current_weather.weathercode,
             isDay: data.current_weather.is_day,
             timezone: data.timezone,
+            daily,
           });
         }
       } catch (err) {
