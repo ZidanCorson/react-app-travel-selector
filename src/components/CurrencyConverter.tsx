@@ -69,7 +69,7 @@ const CurrencyConverter = ({ city }: Props) => {
     <div className="card shadow-sm h-100">
       <div className="card-body">
         <h5 className="card-title text-muted text-uppercase" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-          <i className="bi bi-currency-exchange me-2 text-success"></i>
+          <i className="bi bi-currency-exchange me-2 text-success" aria-hidden="true"></i>
           Currency Converter
         </h5>
         <div className="mt-3">
@@ -90,15 +90,17 @@ const CurrencyConverter = ({ city }: Props) => {
           
           <div className="text-center mb-2">
             <button 
-                className="btn btn-link text-decoration-none p-0" 
-                onClick={handleSwap}
-                title="Swap Currencies"
+              className="btn btn-link text-decoration-none p-0" 
+              onClick={handleSwap}
+              title="Swap Currencies"
+              aria-label="Swap input and output currencies"
             >
-                <i className="bi bi-arrow-down-up text-primary" style={{ fontSize: "1.5rem" }}></i>
+              <i className="bi bi-arrow-down-up text-primary" style={{ fontSize: "1.5rem" }} aria-hidden="true"></i>
+              <span className="visually-hidden">Swap input and output currencies</span>
             </button>
           </div>
 
-          <div className="alert alert-light border text-center mb-0">
+          <div className="alert alert-light border text-center mb-0" aria-live="polite">
             {loading ? (
               <div className="spinner-border spinner-border-sm text-primary" role="status">
                 <span className="visually-hidden">Loading...</span>
@@ -123,6 +125,7 @@ const CurrencyConverter = ({ city }: Props) => {
               <h6 className="text-muted small text-uppercase mb-2">Quick Reference ({inputCurrencyCode})</h6>
               <div className="table-responsive">
                 <table className="table table-sm table-borderless mb-0 small">
+                  <caption className="visually-hidden">Quick reference conversion table for {inputCurrencyCode} to {outputCurrencyCode}</caption>
                   <tbody>
                     {quickAmounts.map((amt) => {
                         const converted = isUsdBase 
