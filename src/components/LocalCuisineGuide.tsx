@@ -10,26 +10,27 @@ const LocalCuisineGuide = ({ city }: Props) => {
   if (!cuisine) return null;
 
   return (
-    <div className="card shadow-sm h-100">
+    <section className="card shadow-sm h-100" role="region" aria-label={`Local cuisine guide for ${city}`}> 
       <div className="card-body">
-        <h5 className="card-title text-muted text-uppercase mb-4" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-          <i className="bi bi-cup-hot-fill me-2 text-danger"></i>
+        <h2 className="card-title text-muted text-uppercase mb-4" style={{ fontSize: "0.9rem", letterSpacing: "1px" }} id="local-cuisine-guide-heading">
+          <span aria-hidden="true">
+            <i className="bi bi-cup-hot-fill me-2 text-danger"></i>
+          </span>
           Local Cuisine Guide
-        </h5>
-        
-        <div className="list-group list-group-flush">
+        </h2>
+        <ul className="list-group list-group-flush" aria-labelledby="local-cuisine-guide-heading">
           {cuisine.map((item, index) => (
-            <div key={index} className="list-group-item border-0 px-0 py-3">
+            <li key={index} className="list-group-item border-0 px-0 py-3" role="listitem">
               <div className="d-flex w-100 justify-content-between align-items-center mb-1">
-                <h6 className="mb-0 fw-bold text-dark">{item.dish}</h6>
-                <span className="badge bg-light text-dark border rounded-pill">{index + 1}</span>
+                <h3 className="mb-0 fw-bold text-dark" style={{ fontSize: "1rem" }}>{item.dish}</h3>
+                <span className="badge bg-light text-dark border rounded-pill" aria-label={`Dish number ${index + 1}`}>{index + 1}</span>
               </div>
               <p className="mb-0 small text-muted fst-italic">{item.description}</p>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
 
