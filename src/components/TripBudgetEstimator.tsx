@@ -67,7 +67,7 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
       <div className="card-body">
         <div className="d-flex justify-content-between align-items-center mb-2">
           <h5 className="card-title text-muted text-uppercase mb-0" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
-            <i className="bi bi-wallet2 me-2 text-warning"></i>
+            <i className="bi bi-wallet2 me-2 text-warning" aria-hidden="true"></i>
             Trip Budget Estimator
           </h5>
           <button 
@@ -75,8 +75,9 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
             onClick={handleReset}
             style={{ textDecoration: 'none' }}
             title="Reset to defaults"
+            aria-label="Reset to default values"
           >
-            <i className="bi bi-arrow-counterclockwise"></i> Reset
+            <i className="bi bi-arrow-counterclockwise" aria-hidden="true"></i> Reset
           </button>
         </div>
         <h3 className="card-text text-primary mb-2" style={{ color: "#2c3e50" }}>
@@ -117,34 +118,35 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
         </div>
 
         {/* Compact Controls */}
-        <div className="row g-2 mb-3">
-            <div className="col-6">
-                 <label className="form-label small text-muted" htmlFor="travelers-range">Travelers: <span className="fw-bold text-dark">{travelers}</span></label>
-                 <input 
-                    id="travelers-range"
-                    type="range" 
-                    className="form-range range-luxury" 
-                    min="1" 
-                    max="10" 
-                    value={travelers} 
-                    onChange={(e) => setTravelers(parseInt(e.target.value))} 
-                    aria-label="Number of travelers"
-                 />
-            </div>
-            <div className="col-6">
-                 <label className="form-label small text-muted" htmlFor="days-range">Days: <span className="fw-bold text-dark">{days}</span></label>
-                 <input 
-                    id="days-range"
-                    type="range" 
-                    className="form-range range-luxury" 
-                    min="1" 
-                    max="14" 
-                    value={days} 
-                    onChange={(e) => setDays(parseInt(e.target.value))} 
-                    aria-label="Number of days"
-                 />
-            </div>
-        </div>
+        <fieldset className="row g-2 mb-3 border-0 p-0 m-0">
+          <legend className="visually-hidden">Trip Details</legend>
+          <div className="col-6">
+            <label className="form-label small text-muted" htmlFor="travelers-range">Travelers: <span className="fw-bold text-dark">{travelers}</span></label>
+            <input 
+              id="travelers-range"
+              type="range" 
+              className="form-range range-luxury" 
+              min="1" 
+              max="10" 
+              value={travelers} 
+              onChange={(e) => setTravelers(parseInt(e.target.value))} 
+              aria-label="Number of travelers"
+            />
+          </div>
+          <div className="col-6">
+            <label className="form-label small text-muted" htmlFor="days-range">Days: <span className="fw-bold text-dark">{days}</span></label>
+            <input 
+              id="days-range"
+              type="range" 
+              className="form-range range-luxury" 
+              min="1" 
+              max="14" 
+              value={days} 
+              onChange={(e) => setDays(parseInt(e.target.value))} 
+              aria-label="Number of days"
+            />
+          </div>
+        </fieldset>
 
         <div className="mb-3">
             <label className="form-label small text-muted">Season</label>
@@ -164,13 +166,14 @@ const TripBudgetEstimator = ({ city, onCostChange }: Props) => {
 
         <div className="mb-3">
           <label className="form-label small text-muted">Travel Style</label>
-          <div className="btn-group w-100 btn-group-luxury" role="group">
+          <div className="btn-group w-100 btn-group-luxury" role="group" aria-label="Travel Style">
             {(Object.keys(baseRates) as Array<keyof typeof baseRates>).map((s) => (
               <button
                 key={s}
                 type="button"
                 className={`btn ${style === s ? "active" : ""}`}
                 onClick={() => setStyle(s)}
+                aria-pressed={style === s}
               >
                 {s}
               </button>
