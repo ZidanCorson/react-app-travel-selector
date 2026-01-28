@@ -127,7 +127,7 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
       <div className="card shadow-lg wizard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
         <div className="card-body text-center p-5">
            <div className="mb-4">
-             <i className="bi bi-stars text-gold" style={{ fontSize: '3rem' }}></i>
+             <i className="bi bi-stars text-gold" style={{ fontSize: '3rem' }} aria-hidden="true"></i>
            </div>
            <h2 className="mb-4 wizard-title">We Recommend: {recommendedCity}</h2>
            <p className="lead mb-4">Based on your preferences, we think you'll fall in love with {recommendedCity}.</p>
@@ -145,12 +145,14 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
              <button 
                className="btn btn-luxury-primary btn-lg"
                onClick={() => onSelectCity(recommendedCity)}
+               aria-label={`Explore ${recommendedCity}`}
              >
                Explore {recommendedCity}
              </button>
              <button 
                className="btn btn-luxury-secondary"
                onClick={onCancel}
+               aria-label="Start Over or Go Back"
              >
                Start Over / Back
              </button>
@@ -163,7 +165,7 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
   return (
     <div className="card shadow-lg wizard-card" style={{ maxWidth: '600px', margin: '0 auto' }}>
       <div className="card-header wizard-header text-center py-3">
-        <h3 className="mb-0 wizard-title"><i className="bi bi-magic me-2 text-gold"></i>Trip Planner Wizard</h3>
+        <h3 className="mb-0 wizard-title"><i className="bi bi-magic me-2 text-gold" aria-hidden="true"></i>Trip Planner Wizard</h3>
       </div>
       <div className="card-body p-5">
         <div className="progress mb-4" style={{ height: '10px' }}>
@@ -171,28 +173,34 @@ const TripWizard = ({ onSelectCity, onCancel }: Props) => {
             className="progress-bar wizard-progress-bar" 
             role="progressbar" 
             style={{ width: `${((step) / questions.length) * 100}%` }}
+            aria-valuenow={Math.round((step / questions.length) * 100)}
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-label="Progress through trip wizard"
           ></div>
         </div>
 
-        <h4 className="mb-4 text-center wizard-title">{currentQuestion.text}</h4>
-
-        <div className="d-grid gap-3">
-          {currentQuestion.options.map((option, idx) => (
-            <button 
-              key={idx}
-              className="btn btn-option btn-lg text-start px-4 py-3"
-              onClick={() => handleAnswer(option.scores)}
-            >
-              <div className="d-flex w-100 justify-content-between align-items-center">
-                 <span>{option.label}</span>
-                 <i className="bi bi-chevron-right text-gold"></i>
-              </div>
-            </button>
-          ))}
-        </div>
+        <fieldset className="border-0 p-0 m-0">
+          <legend className="mb-4 text-center wizard-title h4">{currentQuestion.text}</legend>
+          <div className="d-grid gap-3">
+            {currentQuestion.options.map((option, idx) => (
+              <button 
+                key={idx}
+                className="btn btn-option btn-lg text-start px-4 py-3"
+                onClick={() => handleAnswer(option.scores)}
+                aria-label={option.label}
+              >
+                <div className="d-flex w-100 justify-content-between align-items-center">
+                   <span>{option.label}</span>
+                   <i className="bi bi-chevron-right text-gold" aria-hidden="true"></i>
+                </div>
+              </button>
+            ))}
+          </div>
+        </fieldset>
 
         <div className="mt-4 text-center">
-            <button className="btn btn-link text-muted" onClick={onCancel}>Cancel</button>
+          <button className="btn btn-link text-muted" onClick={onCancel} aria-label="Cancel wizard">Cancel</button>
         </div>
       </div>
     </div>
