@@ -141,51 +141,159 @@ export const cityCostMultipliers: { [key: string]: number } = {
   "Beijing": 0.9
 };
 
-export const cityItineraries: { [key: string]: { day: number; title: string; activities: string[] }[] } = {
+export const cityItineraries: { [key: string]: { day: number; title: string; activities: { name: string; lat: number; lng: number }[] }[] } = {
   "New York": [
-    { day: 1, title: "Iconic Sights", activities: ["Statue of Liberty morning tour", "Walk the High Line", "Sunset at Top of the Rock"] },
-    { day: 2, title: "Culture & Arts", activities: ["Metropolitan Museum of Art", "Lunch in Central Park", "Broadway Show in the evening"] },
-    { day: 3, title: "Urban Exploration", activities: ["Explore SoHo boutiques", "Walk across Brooklyn Bridge", "Dinner in DUMBO"] }
+    { day: 1, title: "Iconic Sights", activities: [
+      { name: "Statue of Liberty morning tour", lat: 40.6892, lng: -74.0445 },
+      { name: "Walk the High Line", lat: 40.747993, lng: -74.004765 },
+      { name: "Sunset at Top of the Rock", lat: 40.759101, lng: -73.9797 }
+    ] },
+    { day: 2, title: "Culture & Arts", activities: [
+      { name: "Metropolitan Museum of Art", lat: 40.7794, lng: -73.9632 },
+      { name: "Lunch in Central Park", lat: 40.7812, lng: -73.9665 },
+      { name: "Broadway Show in the evening", lat: 40.7590, lng: -73.9845 }
+    ] },
+    { day: 3, title: "Urban Exploration", activities: [
+      { name: "Explore SoHo boutiques", lat: 40.7233, lng: -74.0020 },
+      { name: "Walk across Brooklyn Bridge", lat: 40.7061, lng: -73.9969 },
+      { name: "Dinner in DUMBO", lat: 40.7033, lng: -73.9881 }
+    ] }
   ],
   "San Francisco": [
-    { day: 1, title: "Bay Area Classics", activities: ["Ride the Cable Cars", "Fisherman's Wharf & Pier 39", "Alcatraz Night Tour"] },
-    { day: 2, title: "Nature & Views", activities: ["Golden Gate Bridge walk", "Muir Woods Redwoods", "Sausalito ferry ride"] },
-    { day: 3, title: "City Vibes", activities: ["Explore Chinatown", "Mission District murals", "Twin Peaks sunset"] }
+    { day: 1, title: "Bay Area Classics", activities: [
+      { name: "Ride the Cable Cars", lat: 37.7946, lng: -122.4070 },
+      { name: "Fisherman's Wharf & Pier 39", lat: 37.8080, lng: -122.4177 },
+      { name: "Alcatraz Night Tour", lat: 37.8267, lng: -122.4230 }
+    ] },
+    { day: 2, title: "Nature & Views", activities: [
+      { name: "Golden Gate Bridge walk", lat: 37.8199, lng: -122.4783 },
+      { name: "Muir Woods Redwoods", lat: 37.8954, lng: -122.5780 },
+      { name: "Sausalito ferry ride", lat: 37.8591, lng: -122.4853 }
+    ] },
+    { day: 3, title: "City Vibes", activities: [
+      { name: "Explore Chinatown", lat: 37.7941, lng: -122.4078 },
+      { name: "Mission District murals", lat: 37.7599, lng: -122.4148 },
+      { name: "Twin Peaks sunset", lat: 37.7544, lng: -122.4477 }
+    ] }
   ],
   "Tokyo": [
-    { day: 1, title: "Old & New", activities: ["Senso-ji Temple in Asakusa", "Tokyo Skytree views", "Dinner in Shinjuku"] },
-    { day: 2, title: "Pop Culture", activities: ["Harajuku fashion street", "Meiji Shrine", "Shibuya Crossing & Hachiko"] },
-    { day: 3, title: "Tech & Art", activities: ["TeamLab Borderless", "Akihabara electronics", "Sushi in Tsukiji Outer Market"] }
+    { day: 1, title: "Old & New", activities: [
+      { name: "Senso-ji Temple in Asakusa", lat: 35.7148, lng: 139.7967 },
+      { name: "Tokyo Skytree views", lat: 35.7101, lng: 139.8107 },
+      { name: "Dinner in Shinjuku", lat: 35.6938, lng: 139.7034 }
+    ] },
+    { day: 2, title: "Pop Culture", activities: [
+      { name: "Harajuku fashion street", lat: 35.6702, lng: 139.7020 },
+      { name: "Meiji Shrine", lat: 35.6764, lng: 139.6993 },
+      { name: "Shibuya Crossing & Hachiko", lat: 35.6595, lng: 139.7005 }
+    ] },
+    { day: 3, title: "Tech & Art", activities: [
+      { name: "TeamLab Borderless", lat: 35.6272, lng: 139.7768 },
+      { name: "Akihabara electronics", lat: 35.6984, lng: 139.7730 },
+      { name: "Sushi in Tsukiji Outer Market", lat: 35.6655, lng: 139.7708 }
+    ] }
   ],
   "Paris": [
-    { day: 1, title: "The Classics", activities: ["Eiffel Tower summit", "Seine River Cruise", "Louvre Museum highlights"] },
-    { day: 2, title: "Artistic Soul", activities: ["Montmartre & Sacré-Cœur", "Musée d'Orsay", "Latin Quarter cafes"] },
-    { day: 3, title: "Royal Paris", activities: ["Palace of Versailles day trip", "Shopping on Champs-Élysées", "Arc de Triomphe"] }
+    { day: 1, title: "The Classics", activities: [
+      { name: "Eiffel Tower summit", lat: 48.8584, lng: 2.2945 },
+      { name: "Seine River Cruise", lat: 48.8579, lng: 2.2935 },
+      { name: "Louvre Museum highlights", lat: 48.8606, lng: 2.3376 }
+    ] },
+    { day: 2, title: "Artistic Soul", activities: [
+      { name: "Montmartre & Sacré-Cœur", lat: 48.8867, lng: 2.3431 },
+      { name: "Musée d'Orsay", lat: 48.8600, lng: 2.3266 },
+      { name: "Latin Quarter cafes", lat: 48.8494, lng: 2.3470 }
+    ] },
+    { day: 3, title: "Royal Paris", activities: [
+      { name: "Palace of Versailles day trip", lat: 48.8049, lng: 2.1204 },
+      { name: "Shopping on Champs-Élysées", lat: 48.8698, lng: 2.3076 },
+      { name: "Arc de Triomphe", lat: 48.8738, lng: 2.2950 }
+    ] }
   ],
   "London": [
-    { day: 1, title: "Royal London", activities: ["Buckingham Palace Changing of the Guard", "Westminster Abbey", "London Eye"] },
-    { day: 2, title: "History & Markets", activities: ["Tower of London", "Borough Market lunch", "Tate Modern"] },
-    { day: 3, title: "Museums & Parks", activities: ["British Museum", "Covent Garden street performers", "Afternoon Tea at The Ritz"] }
+    { day: 1, title: "Royal London", activities: [
+      { name: "Buckingham Palace Changing of the Guard", lat: 51.5014, lng: -0.1419 },
+      { name: "Westminster Abbey", lat: 51.4993, lng: -0.1273 },
+      { name: "London Eye", lat: 51.5033, lng: -0.1196 }
+    ] },
+    { day: 2, title: "History & Markets", activities: [
+      { name: "Tower of London", lat: 51.5081, lng: -0.0759 },
+      { name: "Borough Market lunch", lat: 51.5055, lng: -0.0918 },
+      { name: "Tate Modern", lat: 51.5076, lng: -0.0994 }
+    ] },
+    { day: 3, title: "Museums & Parks", activities: [
+      { name: "British Museum", lat: 51.5194, lng: -0.1270 },
+      { name: "Covent Garden street performers", lat: 51.5115, lng: -0.1232 },
+      { name: "Afternoon Tea at The Ritz", lat: 51.5074, lng: -0.1278 }
+    ] }
   ],
   "Marrakech": [
-    { day: 1, title: "Medina Magic", activities: ["Jemaa el-Fnaa square", "Koutoubia Mosque", "Souk shopping"] },
-    { day: 2, title: "Gardens & Palaces", activities: ["Majorelle Garden", "Bahia Palace", "Yves Saint Laurent Museum"] },
-    { day: 3, title: "Desert & Spa", activities: ["Atlas Mountains day trip", "Traditional Hammam spa", "Rooftop dinner"] }
+    { day: 1, title: "Medina Magic", activities: [
+      { name: "Jemaa el-Fnaa square", lat: 31.6258, lng: -7.9892 },
+      { name: "Koutoubia Mosque", lat: 31.6241, lng: -7.9939 },
+      { name: "Souk shopping", lat: 31.6300, lng: -7.9811 }
+    ] },
+    { day: 2, title: "Gardens & Palaces", activities: [
+      { name: "Majorelle Garden", lat: 31.6429, lng: -8.0036 },
+      { name: "Bahia Palace", lat: 31.6206, lng: -7.9807 },
+      { name: "Yves Saint Laurent Museum", lat: 31.6422, lng: -8.0032 }
+    ] },
+    { day: 3, title: "Desert & Spa", activities: [
+      { name: "Atlas Mountains day trip", lat: 31.2262, lng: -7.9717 },
+      { name: "Traditional Hammam spa", lat: 31.6295, lng: -7.9811 },
+      { name: "Rooftop dinner", lat: 31.6295, lng: -7.9811 }
+    ] }
   ],
   "Kyoto": [
-    { day: 1, title: "Temple Trail", activities: ["Kinkaku-ji (Golden Pavilion)", "Ryoan-ji Rock Garden", "Arashiyama Bamboo Grove"] },
-    { day: 2, title: "Historic Streets", activities: ["Fushimi Inari Shrine hike", "Kiyomizu-dera Temple", "Gion district geisha spotting"] },
-    { day: 3, title: "Zen & Tea", activities: ["Nijo Castle", "Philosopher's Path", "Traditional Tea Ceremony"] }
+    { day: 1, title: "Temple Trail", activities: [
+      { name: "Kinkaku-ji (Golden Pavilion)", lat: 35.0394, lng: 135.7292 },
+      { name: "Ryoan-ji Rock Garden", lat: 35.0345, lng: 135.7186 },
+      { name: "Arashiyama Bamboo Grove", lat: 35.0094, lng: 135.6668 }
+    ] },
+    { day: 2, title: "Historic Streets", activities: [
+      { name: "Fushimi Inari Shrine hike", lat: 34.9671, lng: 135.7727 },
+      { name: "Kiyomizu-dera Temple", lat: 34.9948, lng: 135.7850 },
+      { name: "Gion district geisha spotting", lat: 35.0037, lng: 135.7788 }
+    ] },
+    { day: 3, title: "Zen & Tea", activities: [
+      { name: "Nijo Castle", lat: 35.0142, lng: 135.7486 },
+      { name: "Philosopher's Path", lat: 35.0254, lng: 135.7986 },
+      { name: "Traditional Tea Ceremony", lat: 35.0116, lng: 135.7681 }
+    ] }
   ],
   "Casablanca": [
-    { day: 1, title: "Architectural Wonders", activities: ["Hassan II Mosque tour", "Rick's Café lunch", "Corniche seaside walk"] },
-    { day: 2, title: "City Life", activities: ["Place Mohammed V", "Old Medina exploration", "Morocco Mall shopping"] },
-    { day: 3, title: "Day Trip", activities: ["Trip to Rabat (Capital)", "Chellah Necropolis", "Kasbah of the Udayas"] }
+    { day: 1, title: "Architectural Wonders", activities: [
+      { name: "Hassan II Mosque tour", lat: 33.6084, lng: -7.6325 },
+      { name: "Rick's Café lunch", lat: 33.5992, lng: -7.6141 },
+      { name: "Corniche seaside walk", lat: 33.5992, lng: -7.6697 }
+    ] },
+    { day: 2, title: "City Life", activities: [
+      { name: "Place Mohammed V", lat: 33.5899, lng: -7.6114 },
+      { name: "Old Medina exploration", lat: 33.5950, lng: -7.6147 },
+      { name: "Morocco Mall shopping", lat: 33.5679, lng: -7.6928 }
+    ] },
+    { day: 3, title: "Day Trip", activities: [
+      { name: "Trip to Rabat (Capital)", lat: 34.0209, lng: -6.8416 },
+      { name: "Chellah Necropolis", lat: 34.0116, lng: -6.8147 },
+      { name: "Kasbah of the Udayas", lat: 34.0318, lng: -6.8361 }
+    ] }
   ],
   "Beijing": [
-    { day: 1, title: "Imperial History", activities: ["Forbidden City", "Tiananmen Square", "Jingshan Park views"] },
-    { day: 2, title: "The Great Wall", activities: ["Mutianyu Great Wall hike", "Ming Tombs", "Peking Duck dinner"] },
-    { day: 3, title: "Culture & Temples", activities: ["Temple of Heaven", "Summer Palace", "Hutong rickshaw tour"] }
+    { day: 1, title: "Imperial History", activities: [
+      { name: "Forbidden City", lat: 39.9163, lng: 116.3972 },
+      { name: "Tiananmen Square", lat: 39.9056, lng: 116.3976 },
+      { name: "Jingshan Park views", lat: 39.9251, lng: 116.3970 }
+    ] },
+    { day: 2, title: "The Great Wall", activities: [
+      { name: "Mutianyu Great Wall hike", lat: 40.4319, lng: 116.5704 },
+      { name: "Ming Tombs", lat: 40.2554, lng: 116.2255 },
+      { name: "Peking Duck dinner", lat: 39.9042, lng: 116.4074 }
+    ] },
+    { day: 3, title: "Culture & Temples", activities: [
+      { name: "Temple of Heaven", lat: 39.8822, lng: 116.4065 },
+      { name: "Summer Palace", lat: 39.9996, lng: 116.2755 },
+      { name: "Hutong rickshaw tour", lat: 39.9422, lng: 116.3966 }
+    ] }
   ]
 };
 
