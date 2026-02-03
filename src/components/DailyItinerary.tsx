@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Polyline } from "react-leaflet";
+import type { LatLngExpression } from "leaflet";
+import "leaflet/dist/leaflet.css";
+import { cityCoordinates } from "../data/cities";
 import { cityItineraries } from "../data/cities";
 import useLocalStorage from "../hooks/useLocalStorage";
 
@@ -33,6 +37,45 @@ const DailyItinerary = ({ city }: Props) => {
   return (
     <div className="card shadow-sm h-100">
       <div className="card-body">
+        {/* Map section */}
+        <div style={{ height: "250px", width: "100%", marginBottom: 20, borderRadius: 12, overflow: "hidden" }}>
+          {cityCoordinates[city] && (
+            <MapContainer
+              center={[cityCoordinates[city].lat, cityCoordinates[city].lng] as LatLngExpression}
+              zoom={12}
+              style={{ height: "100%", width: "100%" }}
+              scrollWheelZoom={false}
+            >
+              <TileLayer
+                // @ts-ignore
+                attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+              />
+              {/* Show activity markers and polyline for the open day if activities have coordinates */}
+              {openIndex !== null && itinerary[openIndex] && Array.isArray(itinerary[openIndex].activities) &&
+                itinerary[openIndex].activities[0] && typeof itinerary[openIndex].activities[0] === 'object' ? (
+                  <>
+                    <Polyline
+                      positions={itinerary[openIndex].activities.map((a: any) => [a.lat, a.lng]) as LatLngExpression[]}
+                      pathOptions={{ color: '#6f42c1', weight: 4, opacity: 0.7 }}
+                    />
+                    {itinerary[openIndex].activities.map((activity: any, idx: number) => (
+                      <Marker key={idx} position={[activity.lat, activity.lng] as LatLngExpression}>
+                        <Popup>{activity.name}</Popup>
+                      </Marker>
+                    ))}
+                  </>
+                ) : (
+                  <Marker position={[cityCoordinates[city].lat, cityCoordinates[city].lng] as LatLngExpression}>
+                    <Popup>
+                      {city}
+                    </Popup>
+                  </Marker>
+                )
+              }
+            </MapContainer>
+          )}
+        </div>
         <h5 className="card-title text-muted text-uppercase mb-4" style={{ fontSize: "0.9rem", letterSpacing: "1px" }}>
           <i className="bi bi-calendar-week-fill me-2" style={{ color: "#6f42c1" }}></i>
           3-Day Perfect Itinerary
@@ -67,6 +110,8 @@ const DailyItinerary = ({ city }: Props) => {
                     <ul className="list-group list-group-flush">
                       {dayPlan.activities.map((activity, i) => {
                         const isSelected = selectedActivities.includes(`${dayPlan.day}-${i}`);
+                        // Support both string and object activity for backward compatibility
+                        const activityName = typeof activity === 'string' ? activity : activity.name;
                         return (
                           <li 
                             key={i} 
@@ -82,7 +127,7 @@ const DailyItinerary = ({ city }: Props) => {
                               style={{ cursor: "pointer", outline: "none" }}
                             >
                               <i className={`bi ${isSelected ? 'bi-check-circle-fill text-success' : 'bi-circle text-muted'} me-3 fs-5`} aria-hidden="true"></i>
-                              <span className={isSelected ? "text-dark fw-medium" : "text-muted"}>{activity}</span>
+                              <span className={isSelected ? "text-dark fw-medium" : "text-muted"}>{activityName}</span>
                             </button>
                           </li>
                         );
