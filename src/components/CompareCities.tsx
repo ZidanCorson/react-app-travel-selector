@@ -69,7 +69,7 @@ const CompareCities = ({ city1, city2, onBack }: Props) => {
                 </li>
                 <li className="list-group-item">
                   <div className="fw-bold mb-1"><i className="bi bi-star me-2 text-warning"></i>Top Attraction</div>
-                  <small>{cityItineraries[city1]?.[0]?.activities[0]}</small>
+                  <small>{cityItineraries[city1]?.[0]?.activities[0]?.name}</small>
                 </li>
                 <li className="list-group-item">
                   <div className="fw-bold mb-1"><i className="bi bi-egg-fried me-2 text-danger"></i>Must Try Food</div>
@@ -113,7 +113,7 @@ const CompareCities = ({ city1, city2, onBack }: Props) => {
                 </li>
                 <li className="list-group-item">
                   <div className="fw-bold mb-1"><i className="bi bi-star me-2 text-warning"></i>Top Attraction</div>
-                  <small>{cityItineraries[city2]?.[0]?.activities[0]}</small>
+                  <small>{cityItineraries[city2]?.[0]?.activities[0]?.name}</small>
                 </li>
                 <li className="list-group-item">
                   <div className="fw-bold mb-1"><i className="bi bi-egg-fried me-2 text-danger"></i>Must Try Food</div>
