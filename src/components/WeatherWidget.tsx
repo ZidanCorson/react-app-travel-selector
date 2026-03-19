@@ -110,4 +110,3 @@ const WeatherWidget = ({ weather, loading, error }: Props) => {
 };
 
 export default WeatherWidget;
-
