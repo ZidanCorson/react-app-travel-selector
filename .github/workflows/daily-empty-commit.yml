@@ -12,15 +12,18 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GH_PAT }}
+            token: ${{ secrets.PERSONAL_TOKEN }}
       - name: Fetch and rebase
         run: |
           git fetch origin main
           git rebase origin/main
       - name: Make empty commit
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit --allow-empty -m "chore: daily empty commit"
+          run: |
+            git config user.name "ZidanCorson"
+            git config user.email "zidan.wang@bbc.co.uk"
+            git commit --allow-empty -m "chore: daily empty commit"
       - name: Push commit
-        run: git push origin main
+          env:
+            GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+          run: |
+            git push https://ZidanCorson:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}.git main
