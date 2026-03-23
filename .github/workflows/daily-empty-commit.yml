@@ -18,12 +18,12 @@ jobs:
           git fetch origin main
           git rebase origin/main
       - name: Make empty commit
-          run: |
-            git config user.name "ZidanCorson"
-            git config user.email "zidan.wang@bbc.co.uk"
-            git commit --allow-empty -m "chore: daily empty commit"
+        run: |
+          git config user.name "ZidanCorson"
+          git config user.email "zidan.wang@bbc.co.uk"
+          git commit --allow-empty -m "chore: daily empty commit"
       - name: Push commit
-          env:
-            GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          run: |
-            git push https://ZidanCorson:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}.git main
+        env:
+          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+        run: |
+          git push https://ZidanCorson:${{ secrets.PERSONAL_TOKEN }}@github.com/${{ github.repository }}.git main
